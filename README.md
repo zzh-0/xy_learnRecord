@@ -59,36 +59,21 @@
 代码如下
 
 ```python
-import requests
-
-url = 'https://ccnu.ai-augmented.com/api/jx-iresource/learnLength/learnRecord'
-headers = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36'
-}
-
-if __name__ == '__main__':
-    group_id = input('group_id: ')
-    resourceId = input('resourceId: ')
-    user_id = input('user_id: ')
-    data = {
-    "clientType": 1,
-    "group_id": group_id,
-    "resourceId": resourceId,
-    "roleType": 1,
-    "user_id": user_id,
-    }
-    response = requests.post(url,headers=headers,json=data)
-    if response.status_code == 200:    
-        print('Request successful: ', response.text)  
-    else:  
-        print('Request failed: ', response.status_code, response.text)
+# duration为运行次数，即时间。发送一次为一分钟
+def send_post(duration,data):
+    for _ in range(duration):
+        response = requests.post(url,headers=headers,json=data)
+        if response.status_code == 200:    
+            print('Request successful: ', response.text)  
+        else:  
+            print('Request failed: ', response.status_code, response.text)
 ```
 
-运行发现，服务器对时间没有限制
+运行发现，服务器对时间间隔没有限制
 
-**由于小雅平台的时长统计是次日显示，所以目前无法测试是否成功**
+经过实验，时长成功计入
 
-**后续将进行更新**
+**后续可能更新油猴脚本**
 
 ## 其他
 
